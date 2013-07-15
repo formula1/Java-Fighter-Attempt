@@ -1,0 +1,42 @@
+How do I want to build Games?
+
+Theres this concept that... "HEY IT WILL BE DIFFERENT EVERYTIME, SO KEEP IT MODULAR!!!"
+But theres also the realistic idea of speed and purpose
+
+Speed in terms of development
+And speed in terms of processing
+
+Lightweight in terms of download
+
+
+So, how do I want to build games?
+I want to be able to craft entities fixtures simply.
+Without the need to do it in java
+Similar to HTML except obviously not
+
+I think
+
+<Entity>
+	<State>
+		<Body>
+			<fixture>
+			<fixture>
+			<fixture>
+		</body>
+		<Body>
+		<Body>
+		<Body>
+	</state>
+	
+</Entity>
+
+Thats a good start
+
+However, when it comes down to it, lets look at where I'm going
+-Add Graphics-Sometimes associated to body, sometimes associated to fixture, sometimes a gui/background (binds to the camera)
+-Playable over the internet, games able to set the number of players they desire
+-Have menus as well as the game, So i need a menu renderer of sorts
+-Keeping as much stuff in the background as possible while also making sure people have the ability to easily make animations
+	and such
+
+-Be able to develop fun games at a fast pace. Using Debug draw at first then adding graphics later	

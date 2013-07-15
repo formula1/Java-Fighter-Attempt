@@ -1,0 +1,20 @@
+TODO
+
+
+
+Multiple PLayers
+
+Setting Up Abstracts
+
+Make Sure Players (Abstract) interact with a "Game" properly.
+
+
+Start Cretaing Combat
+-Take a look at other box2d Combat systems
+	-Especially in the case of literal balance and attacks
+-"The Spins" is a circular sensor- On hit, will set the player perpendicular to the angle being hit
+	-Adds an amount of "genericness" and ease of comboability to the gameplay
+
+
+Not doing net play just yet...
+Not doing touchscreen just yet...

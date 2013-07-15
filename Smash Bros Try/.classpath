@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+	<classpathentry kind="lib" path="C:/Users/Sam/Documents/code/java/jars/jbox2d-2.2.1.1/jbox2d-library/target/jbox2d-library-2.2.1.1.jar" sourcepath="C:/Users/Sam/Documents/code/java/jars/jbox2d-2.2.1.1/jbox2d-library/target/jbox2d-library-2.2.1.1-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/C:/Users/Sam/Documents/code/java/jars/jbox2d-2.2.1.1/jbox2d-library/target/jbox2d-library-2.2.1.1-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Sam/Documents/code/java/jars/jinput_nightly_20130616/dist/jinput.jar">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="C:/Users/Sam/Documents/code/java/jars/jinput_nightly_20130616/dist"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
