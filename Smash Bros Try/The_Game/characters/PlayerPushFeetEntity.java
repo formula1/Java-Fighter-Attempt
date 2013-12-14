@@ -27,7 +27,8 @@ public class PlayerPushFeetEntity extends MinionEntity{
 	AttackBox tilt;
 	FeetHelper ground;
 	RevoluteJoint turret;
-	boolean fired = false;	
+	boolean fired = false;
+	Body hammer;
 	
 	public PlayerPushFeetEntity(int player_number, Vec2 position){
 
@@ -36,21 +37,43 @@ public class PlayerPushFeetEntity extends MinionEntity{
 		tilt = new MyFirstAttack(this);
 
 		getMass();
-/*		
+		
+		
+		/*
+		 * 
+		 * If what both of the two bodies are "controlled"
+		 * -it goes into clash
+		 * 
+		 * parameters for a player are
+		 * 	-how much can we lift-
+		 * 	-how fast do we lift things-
+		 * 
+		 * 	-foot power-how fast can we go
+		 * 	-accelleration-how fast can we accellerate
+		 * 	-stamina-how long can we do it for
+		 * 
+		 * 
+		 * 
+		 */
+		
+		
+		hammer = Box2dHelper.createPlayerEntityRectangle(
+				new Ownership(this.pn,this, this, "hammer"), position, new Vec2(5,1), false);
+		
 		RevoluteJointDef rjd = new RevoluteJointDef();
 		
 
 		
 		rjd = new RevoluteJointDef();
-		rjd.bodyA = bodies.get("rest");
+		rjd.bodyA = main;
 		rjd.localAnchorA = new Vec2(-1.5f, 0);
-		rjd.bodyB = bodies.get("turret");
+		rjd.bodyB = hammer;
+		rjd.localAnchorB = new Vec2(-5f, 0);
 		rjd.collideConnected = false;
 		rjd.enableMotor = true;
-		rjd.maxMotorTorque = bodies.get("turret").getMass()*2*(float)Math.PI*360;
+		rjd.maxMotorTorque = hammer.getMass()*2*(float)Math.PI*360;
 		rjd.motorSpeed = 0;
 		turret = (RevoluteJoint)Game.world.createJoint(rjd);
-*/
 		
 	}
 		
@@ -106,6 +129,7 @@ public class PlayerPushFeetEntity extends MinionEntity{
 			ground.jump(20);
 		}
 
+		/*
 		if(Game.players[pn].get("x") > 0.5f && !attacking){
 			if(Game.players[pn].get("up") > 0.5f){
 				tilt.toggleAttack(0, true);
@@ -123,17 +147,15 @@ public class PlayerPushFeetEntity extends MinionEntity{
 			tilt.attacksOff();
 			attacking = false;
 		}
-
-/*		
+*/
 		if(			Game.players[pn].get("up") > 0.5f		&&		Game.players[pn].get("down") < 0.5f
 		){
-			turret.setMotorSpeed(bodies.get("turret").getMass()*2*(float)Math.PI);
+			turret.setMotorSpeed(hammer.getMass()*2*(float)Math.PI);
 		}else if(	Game.players[pn].get("up") < 0.5f		&&		Game.players[pn].get("down") > 0.5f){
-			turret.setMotorSpeed(-bodies.get("turret").getMass()*2*(float)Math.PI);
+			turret.setMotorSpeed(-hammer.getMass()*2*(float)Math.PI);
 		}else{
 			turret.setMotorSpeed(0);
 		}
-*/
 	}
 
 

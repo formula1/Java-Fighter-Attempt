@@ -103,7 +103,7 @@ public abstract class MinionEntity implements Logic_Entity {
 	
 	public void time(int frame_num) {
 		// TODO Auto-generated method stub
-		System.out.println("ispaused?"+isPaused()+", isstunned?"+(stun > 0));
+		//System.out.println("ispaused?"+isPaused()+", isstunned?"+(stun > 0));
 		if(isPaused()){
 			if(clash.clashes.size() > 0){
 				

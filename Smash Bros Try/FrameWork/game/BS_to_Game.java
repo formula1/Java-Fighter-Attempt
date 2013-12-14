@@ -96,7 +96,7 @@ public class BS_to_Game extends Game{
 		Ownership fixbdata = (Ownership)contact.m_fixtureB.getUserData();
 		BodyUserData adata = (BodyUserData)contact.getFixtureA().getBody().getUserData();
 		BodyUserData bdata = (BodyUserData)contact.getFixtureB().getBody().getUserData();
-		
+		/*
 		if(contact.isTouching() && fixadata != null && fixbdata != null){
 			if(fixadata.stored_info != null && fixbdata.stored_info != null){
 				String sa = (String)fixadata.stored_info;
@@ -109,15 +109,7 @@ public class BS_to_Game extends Game{
 				}
 			}
 		}
-			
-		if(	!contact.getFixtureA().isSensor() 	&& !contact.getFixtureB().isSensor()
-		&&	contact.getFixtureA().getBody().getType() == BodyType.DYNAMIC	&& contact.getFixtureB().getBody().getType() == BodyType.DYNAMIC
-		){
-			if(adata.paused != null)adata.paused.appendFreinds(contact);
-			else if(bdata.paused != null) bdata.paused.appendFreinds(contact);
-			else pauses.add(new PauseInstance(contact));
-		}
-		
+		*/
 		if(fixadata != null && (fixbdata == null || fixbdata.player_number != -2)){
 			((CollisionManager)fixadata.manager).beginContact(contact, true);
 		}
@@ -166,7 +158,18 @@ public class BS_to_Game extends Game{
 		 * 
 		 */
 		
+		float max = 0;
+		for(float f : impulse.normalImpulses)	max = Math.max(max, f);
+		int init = Math.round(max/100);
+
 		
+		if(init > 0 && contact.isTouching() &&	!contact.getFixtureA().isSensor() 	&& !contact.getFixtureB().isSensor()
+		&&	contact.getFixtureA().getBody().getType() == BodyType.DYNAMIC	&& contact.getFixtureB().getBody().getType() == BodyType.DYNAMIC
+		){
+			if(adata.paused != null)adata.paused.appendFreinds(contact,impulse);
+			else if(bdata.paused != null) bdata.paused.appendFreinds(contact,impulse);
+			else pauses.add(new PauseInstance(contact, impulse));
+		}
 		
 		
 		if(fixadata != null && (fixbdata == null || fixbdata.player_number != -2)){
