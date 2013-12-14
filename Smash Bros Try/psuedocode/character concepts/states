@@ -1,0 +1,38 @@
+		/*
+		 * I dont necessarilly need full out physics
+		 * However, I do want some sort of physics engine
+		 * 
+		 * 
+		 * What do I need need for animations?
+		 * 
+		 * stand animation
+		 * impatient animation
+		 * 
+		 * 
+		 * jump animation (initial)
+		 * rising animation (inair)
+		 * falling animation
+		 * land animation
+		 * 
+		 * walk animation
+		 * run animation
+		 * turn/stop animation
+		 * 
+		 * duck animation
+		 * crawl animation
+		 * slide animation (going from run to duck)
+		 * 
+		 * wall cling animation
+		 * wall jump animation
+		 * 
+		 * Almost off ledge
+		 * 
+		 * Hit
+		 * Bounced
+		 * Quick recovery
+		 * 
+		 * happy victory pose
+		 * too easy pose
+		 * Dominance pose
+		 * 
+		 */

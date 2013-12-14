@@ -1,0 +1,20 @@
+Part of the Issue right now is my lack of organization
+
+1) Player entities and other entities are all pratcically the same
+
+2a) The player entities use a command interface to do its actions
+2b) Other entities use an ai to do its actions
+
+3) Skeletons/attackboxes should be seperate from the entity itself
+
+4) I want to start with something simple, and though I have a bunch of advanced stuff available to me at this point
+	I need to take a step back and put simple on first
+
+5a) Level is an aspect I need to do
+5b) Entity is an aspect I need to do
+	-Entity actions
+5c) Command is an aspect I need to do
+5d) Menus/worlds is an aspect I need to do
+
+One thing at a time....
+

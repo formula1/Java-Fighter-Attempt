@@ -2,19 +2,26 @@ TODO
 
 
 
-Multiple PLayers
-
-Setting Up Abstracts
-
-Make Sure Players (Abstract) interact with a "Game" properly.
 
 
 Start Cretaing Combat
 -Take a look at other box2d Combat systems
 	-Especially in the case of literal balance and attacks
+	--There are very few which puts me in an awkward spot
+	--Need to focus on other games. period.
+	
+	Poke-direct, accurate
+	Area of effect-hits multiple angles, not specifically skillful
+	Push-Timed, charge up, good durability
+	
 -"The Spins" is a circular sensor- On hit, will set the player perpendicular to the angle being hit
 	-Adds an amount of "genericness" and ease of comboability to the gameplay
 
 
-Not doing net play just yet...
+Start setting up NetPLay
+Setup Full Screen
+Make Sure GUI can either been screen scaled or not screen scaled
+
+
+
 Not doing touchscreen just yet...

@@ -1,0 +1,20 @@
+		/*
+		 * What I wnat to do with pause is a few things
+		 * 
+		 * On hit
+		 * -Create Pause to both players
+		 * 
+		 * On cancel clash
+		 * -Create pause for both players wait for inputs
+		 * 
+		 * On struggle clash
+		 * -Create pause for both players until winner is decided
+		 * 
+		 * On winning struggleclash
+		 * -Create pause for both players while setting the loser to a certian velocity
+		 * 
+		 * Now the characters themselves will be paused, however, they can still interact with collision events
+		 * 
+		 * if the character is not stunned, the inputs will be stored until 
+		 * 
+		 */
