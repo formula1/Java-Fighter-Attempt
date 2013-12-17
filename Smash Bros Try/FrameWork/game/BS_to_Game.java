@@ -6,7 +6,6 @@ import helpers.Box2dHelper;
 import helpers.Ownership;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import levels.MyFirstLevel;
 import low_level_abstract.CollisionManager;
@@ -15,7 +14,6 @@ import low_level_abstract.Logic_Entity;
 import org.jbox2d.callbacks.ContactImpulse;
 import org.jbox2d.collision.Manifold;
 import org.jbox2d.common.Vec2;
-import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.contacts.Contact;
 
@@ -24,12 +22,9 @@ import clash.Clash;
 import characters.PlayerPushFeetEntity;
 
 import pause.PauseInstance;
-import physics.PhysicsManager;
-import projectiles.Basic_Projectile;
 import thinkers.MinionEntity;
 
 
-import controller.Player;
 import abstracts.Game;
 import abstracts.GameLevel;
 
@@ -42,7 +37,6 @@ public class BS_to_Game extends Game{
 	public static ArrayList<Logic_Entity> le;
 	public static ArrayList<Clash> c;
 	public ArrayList<PauseInstance> pauses;
-	private Long period = 0L;
 	
 	
 	public BS_to_Game() {
@@ -94,22 +88,22 @@ public class BS_to_Game extends Game{
 	public void beginContact(Contact contact) {
 		Ownership fixadata = (Ownership)contact.m_fixtureA.getUserData();
 		Ownership fixbdata = (Ownership)contact.m_fixtureB.getUserData();
-		BodyUserData adata = (BodyUserData)contact.getFixtureA().getBody().getUserData();
-		BodyUserData bdata = (BodyUserData)contact.getFixtureB().getBody().getUserData();
-		/*
-		if(contact.isTouching() && fixadata != null && fixbdata != null){
-			if(fixadata.stored_info != null && fixbdata.stored_info != null){
-				String sa = (String)fixadata.stored_info;
-				String sb = (String)fixbdata.stored_info;
-				
-				if(sa.startsWith("attack") && sb.startsWith("attack")){
-					c.add(new Clash(adata.owner,bdata.owner, contact, new PauseInstance(contact, true)));
-					contact.setEnabled(false);
-					return;
-				}
-			}
-		}
-		*/
+		
+        /*
+        if(contact.isTouching() && fixadata != null && fixbdata != null){
+                if(fixadata.stored_info != null && fixbdata.stored_info != null){
+                        String sa = (String)fixadata.stored_info;
+                        String sb = (String)fixbdata.stored_info;
+                        
+                        if(sa.startsWith("attack") && sb.startsWith("attack")){
+                                c.add(new Clash(adata.owner,bdata.owner, contact, new PauseInstance(contact, true)));
+                                contact.setEnabled(false);
+                                return;
+                        }
+                }
+        }
+        */
+
 		if(fixadata != null && (fixbdata == null || fixbdata.player_number != -2)){
 			((CollisionManager)fixadata.manager).beginContact(contact, true);
 		}
@@ -135,6 +129,11 @@ public class BS_to_Game extends Game{
 		Ownership fixadata = (Ownership)contact.m_fixtureA.getUserData();
 		Ownership fixbdata = (Ownership)contact.m_fixtureB.getUserData();
 		
+		BodyUserData adata = (BodyUserData)contact.getFixtureA().getBody().getUserData();
+		BodyUserData bdata = (BodyUserData)contact.getFixtureB().getBody().getUserData();
+
+		if(adata.paused != null && bdata.paused != null) contact.setEnabled(false);
+		
 		if(fixadata != null && (fixbdata == null || fixbdata.player_number != -2)){
 			((CollisionManager)fixadata.manager).preSolve(contact, true);
 		}
@@ -149,7 +148,7 @@ public class BS_to_Game extends Game{
 		Ownership fixbdata = (Ownership)contact.m_fixtureB.getUserData();
 		BodyUserData adata = (BodyUserData)contact.getFixtureA().getBody().getUserData();
 		BodyUserData bdata = (BodyUserData)contact.getFixtureB().getBody().getUserData();
-		
+
 		/*
 		 * For my purposes
 		 * 
@@ -210,8 +209,6 @@ public class BS_to_Game extends Game{
 
 	public void time(long time) {
 		current_frame++;
-		float curmass = 0;
-		Ownership o;
 		last_time += time;
 		if(last_time>= 1000){
 			frames_per_second = Math.round(1000*framenum/last_time);

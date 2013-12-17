@@ -8,9 +8,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
-
-import low_level_abstract.CollisionManager;
 
 
 
@@ -50,7 +47,6 @@ public class PauseInstance {
 		for(float f : impulse.normalImpulses)	max = Math.max(max, f);
 		int init = Math.round(max/100);
 		
-		System.out.println("imp:"+max);
 		
 		timeleft = (ca != null && ca.pause != null)?ca.pause.getPauseEffect(init):0;
 		timeleft +=(cb != null && cb.pause != null)?cb.pause.getPauseEffect(init):0;
@@ -111,7 +107,6 @@ public class PauseInstance {
 		for(float f : impulse.normalImpulses)	max = Math.max(max, f);
 		int init = Math.round(max/100);
 		
-		System.out.println("imp:"+max);		
 		timeleft = Math.max(timeleft,  init);
 	}
 	
@@ -134,7 +129,6 @@ public class PauseInstance {
 	
 	public void unpause(){
 		timeleft = 0;
-		int i = 0;
 		Iterator<Entry<Body,PauseInfo>> x = bodies.entrySet().iterator();
 		while(x.hasNext()){
 		    Map.Entry<Body,PauseInfo> entry = x.next();
@@ -160,9 +154,10 @@ public class PauseInstance {
 			this.body = body;
 			AngVels = new ArrayList<Float>();
 			LinVels = new ArrayList<Vec2>();
-			 AngVels.add(body.getAngularVelocity());
+			AngVels.add(body.getAngularVelocity());
 			LinVels.add(body.getLinearVelocity().clone());
 			this.gravscale = body.getGravityScale();
+
 			
 		}
 		
@@ -181,14 +176,14 @@ public class PauseInstance {
 			if(paused){
 				body.setGravityScale(gravscale);
 				Vec2 finallinVel = new Vec2();
-				for(Vec2 lvel : LinVels){
-					finallinVel.add(lvel);
+				for(Vec2 lvel : LinVels)
+				{
+					finallinVel = finallinVel.add(lvel);
 				}
 				Float finalangVel = 0f;
 				for(Float avel : AngVels){
 					finalangVel += avel;
 				}
-				System.out.println("final lin vel:"+finallinVel.toString());
 				body.setLinearVelocity(finallinVel);
 				body.setAngularVelocity(finalangVel);
 				paused = false;
