@@ -37,8 +37,6 @@ public class PauseInstance {
 		Body A = contact.getFixtureA().getBody();
 		Body B = contact.getFixtureB().getBody();
 
-		bodies.put(A, new PauseInfo(A));
-		bodies.put(B, new PauseInfo(B));
 		
 		Ownership ca = ((Ownership)contact.getFixtureA().getUserData());
 		Ownership cb = ((Ownership)contact.getFixtureB().getUserData());
@@ -78,6 +76,7 @@ public class PauseInstance {
 
 	
 	public void appendFreind(Body body){
+		bodies.put(body, new PauseInfo(body));
 		BodyUserData d = (BodyUserData)body.getUserData();
 		d.paused = this;
 		body.setUserData(d);
@@ -93,14 +92,12 @@ public class PauseInstance {
 		if(bodies.containsKey(A))
 			bodies.get(A).moreVel(A);
 		else{
-			bodies.put(A, new PauseInfo(A));
 			appendFreind(A);
 		}
 
 		if(bodies.containsKey(B))
 			bodies.get(B).moreVel(B);
 		else{
-			bodies.put(B, new PauseInfo(B));
 			appendFreind(B);
 		}
 		float max = 0;
@@ -121,7 +118,7 @@ public class PauseInstance {
 			Iterator<Entry<Body,PauseInfo>> x = bodies.entrySet().iterator();
 			while(x.hasNext()){
 			    Map.Entry<Body,PauseInfo> entry = x.next();
-				entry.getValue().remainPause();
+			    entry.getValue().remainPause();
 			}
 		}
 		return (bodies.size()==0);
@@ -132,10 +129,22 @@ public class PauseInstance {
 		Iterator<Entry<Body,PauseInfo>> x = bodies.entrySet().iterator();
 		while(x.hasNext()){
 		    Map.Entry<Body,PauseInfo> entry = x.next();
-			if(entry.getValue().unpause(entry.getKey()))
-				x.remove();
+		    entry.getValue().unpause(entry.getKey());
 		}
 		
+	}
+	
+	public boolean deconstruct(Contact contact){
+		//need deconstruct because since we pause mid collision, we have to set disabled to true over and over
+		//after we unpause, all those collisions happen unless we disable the collision until they've become sperated
+		Body A = contact.getFixtureA().getBody();
+		bodies.get(A).removePause();
+		bodies.remove(A);
+		A = contact.getFixtureB().getBody();
+		bodies.get(A).removePause();
+		bodies.remove(A);
+		
+		return (bodies.size() == 0);
 	}
 		
 	public void appendImpact(Body body, Impact impact){
@@ -172,6 +181,12 @@ public class PauseInstance {
 			AngVels.add(body.getAngularVelocity());
 		}
 		
+		public void removePause(){
+			BodyUserData d = (BodyUserData)body.getUserData();
+			d.paused = null;
+			body.setUserData(d);
+		}
+		
 		public boolean unpause(Body body){
 			if(paused){
 				body.setGravityScale(gravscale);
@@ -188,9 +203,7 @@ public class PauseInstance {
 				body.setAngularVelocity(finalangVel);
 				paused = false;
 			}
-			BodyUserData d = (BodyUserData)body.getUserData();
-			d.paused = null;
-			body.setUserData(d);
+
 			return true; // used for delayed rapid impacts
 		}
 		

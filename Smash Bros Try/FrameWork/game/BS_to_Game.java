@@ -115,7 +115,16 @@ public class BS_to_Game extends Game{
 	public void endContact(Contact contact) {
 		Ownership fixadata = (Ownership)contact.m_fixtureA.getUserData();
 		Ownership fixbdata = (Ownership)contact.m_fixtureB.getUserData();
-
+		BodyUserData adata = (BodyUserData)contact.getFixtureA().getBody().getUserData();
+		BodyUserData bdata = (BodyUserData)contact.getFixtureB().getBody().getUserData();
+		
+		if(adata.paused != null
+		&& bdata.paused != null
+		&& bdata.paused == adata.paused){
+			if(adata.paused.deconstruct(contact)) pauses.remove(bdata.paused);
+			
+		}
+		
 		if(fixadata != null && (fixbdata == null || fixbdata.player_number != -2)){
 			((CollisionManager)fixadata.manager).endContact(contact, true);
 		}
@@ -132,7 +141,7 @@ public class BS_to_Game extends Game{
 		BodyUserData adata = (BodyUserData)contact.getFixtureA().getBody().getUserData();
 		BodyUserData bdata = (BodyUserData)contact.getFixtureB().getBody().getUserData();
 
-		if(adata.paused != null && bdata.paused != null) contact.setEnabled(false);
+		if(adata.paused != null && bdata.paused != null && contact.isTouching()) contact.setEnabled(false);
 		
 		if(fixadata != null && (fixbdata == null || fixbdata.player_number != -2)){
 			((CollisionManager)fixadata.manager).preSolve(contact, true);
@@ -224,7 +233,7 @@ public class BS_to_Game extends Game{
 		}
 		
 		for(int i=0;i<pauses.size();i++){
-			if(pauses.get(i).time()){pauses.remove(i);i--;}
+			pauses.get(i).time();
 		}
 		
 		for(Logic_Entity l : le){

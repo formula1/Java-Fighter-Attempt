@@ -6,6 +6,7 @@ import low_level_abstract.CollisionManager;
 import helpers.Box2dHelper;
 import helpers.Ownership;
 
+import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.Fixture;
@@ -21,11 +22,17 @@ public class Hammer implements CollisionManager{
 	Body ham;
 	MinionEntity owner;
 	ArrayList<Joint> currentJoints;
+	float length;
+	float girth;
+	boolean active;
+	
 	
 	public Hammer(MinionEntity minion){
 		owner = minion;
 		currentJoints = new ArrayList<Joint>();
 		ham = getAttackStructure();
+		length = ((PolygonShape)(ham.getFixtureList().m_shape)).getVertex(0).x - Math.min(((PolygonShape)(ham.getFixtureList().m_shape)).getVertex(0).x * .2f, 2f);
+		girth = (((PolygonShape)(ham.getFixtureList().m_shape)).getVertex(0).y + ((PolygonShape)(ham.getFixtureList().m_shape)).getVertex(1).y);
 		deactivate();
 	}
 	
@@ -52,6 +59,23 @@ public class Hammer implements CollisionManager{
 	}
 
 	public void activate(byte direction, String type){
+		if(!owner.busy){
+			Box2dHelper.world.destroyJoint(currentJoints.get(0));
+			if(type =="swing"){
+				ham.setTransform(new Vec2(length,girth), 0);
+				switch(direction){
+				case 0: break;
+				case 1: break;
+				case 2: break;
+				case 3: break;
+				default: throw new Error("I have no idea what happened");
+				}
+				owner.busy = true;
+			}
+		}
+	}
+	
+	public void time(){
 		
 	}
 

@@ -15,6 +15,7 @@ import org.jbox2d.dynamics.joints.RevoluteJointDef;
 import org.jbox2d.dynamics.joints.WeldJoint;
 import org.jbox2d.dynamics.joints.WeldJointDef;
 
+import revolute_attack.Hammer;
 import thinkers.MinionEntity;
 
 
@@ -28,7 +29,7 @@ public class PlayerPushFeetEntity extends MinionEntity{
 	FeetHelper ground;
 	RevoluteJoint turret;
 	boolean fired = false;
-	Body hammer;
+	Hammer ham;
 	
 	public PlayerPushFeetEntity(int player_number, Vec2 position){
 
@@ -56,25 +57,7 @@ public class PlayerPushFeetEntity extends MinionEntity{
 		 * 
 		 */
 		
-		
-		hammer = Box2dHelper.createPlayerEntityRectangle(
-				new Ownership(this.pn,this, this, "hammer"), position, new Vec2(5,1), false);
-		
-		RevoluteJointDef rjd = new RevoluteJointDef();
-		
-
-		
-		rjd = new RevoluteJointDef();
-		rjd.bodyA = main;
-		rjd.localAnchorA = new Vec2(-1.5f, 0);
-		rjd.bodyB = hammer;
-		rjd.localAnchorB = new Vec2(-5f, 0);
-		rjd.collideConnected = false;
-		rjd.enableMotor = true;
-		rjd.maxMotorTorque = hammer.getMass()*2*(float)Math.PI*360;
-		rjd.motorSpeed = 0;
-		turret = (RevoluteJoint)Game.world.createJoint(rjd);
-		
+		ham = new Hammer(this);
 	}
 		
 	

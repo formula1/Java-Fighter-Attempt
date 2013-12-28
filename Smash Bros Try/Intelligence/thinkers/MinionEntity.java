@@ -53,6 +53,7 @@ public abstract class MinionEntity implements Logic_Entity {
 	private int stun = 0;
 	private boolean isstunned = false;
 	public Body main;
+	public boolean busy;
 	
 	public MinionEntity(int pn, Vec2 position){
 		this.pn = pn;
