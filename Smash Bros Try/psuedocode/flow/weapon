@@ -1,0 +1,25 @@
+
+
+Weapon
+{properties}
+	-direction-enum:up|left|down|right|0
+	-time_of_direction-integer
+	-is_attacking-boolean
+	-weapon-body
+	-swing-Revolute join
+	-poke-primatic joint
+	-hold-Weld Joint
+{commands}
+	-up-set direction = up
+	-down-set direction = down
+	-left-set direction = left
+	-right-set direction = right
+	-no direction-set direction = 0
+	-attack-
+		if(is_charging)
+		if(is_attacking)
+{listeners}
+	-time-if(fullfilled desired)
+			-desired could be poking
+			-desired could be swinging
+	-

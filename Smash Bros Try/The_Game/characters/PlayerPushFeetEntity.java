@@ -27,7 +27,6 @@ import attacks.MyFirstAttack;
 public class PlayerPushFeetEntity extends MinionEntity{
 	AttackBox tilt;
 	FeetHelper ground;
-	RevoluteJoint turret;
 	boolean fired = false;
 	Hammer ham;
 	
@@ -133,11 +132,11 @@ public class PlayerPushFeetEntity extends MinionEntity{
 */
 		if(			Game.players[pn].get("up") > 0.5f		&&		Game.players[pn].get("down") < 0.5f
 		){
-			turret.setMotorSpeed(hammer.getMass()*2*(float)Math.PI);
+			ham.activate((byte) 1, "swing");
 		}else if(	Game.players[pn].get("up") < 0.5f		&&		Game.players[pn].get("down") > 0.5f){
-			turret.setMotorSpeed(-hammer.getMass()*2*(float)Math.PI);
+			ham.activate((byte) 3, "swing");
 		}else{
-			turret.setMotorSpeed(0);
+			ham.deactivate();
 		}
 	}
 

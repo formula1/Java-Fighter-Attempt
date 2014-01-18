@@ -1,0 +1,44 @@
+Flow
+
+
+Characters
+{properties}
+busy = enum:Modulename|null
+
+Body-Module
+	{Properties}
+		-facing-enum:left|right
+		-preparedness-integer
+	{commands}
+		-left-
+			-if facing right, turn left
+			-move left
+		-right-
+			-if facing left, turn right
+			-move right
+		-no diretcion-
+			-stop movement
+		-block-
+			-if(character.busy == null)
+				set preparedness = 500
+				character.busy = this
+		-unblock
+			-if(character.busy == this)
+				-set preparedness = 0;
+				-character.busy = null
+	{listeners}
+		-on collide-if(preparedness < impact strength) apply stun
+-Feet
+	{properties}
+		-jumpable-boolean
+	{commands}
+		-jump
+			-if(jumpable) apply velocity up
+	{Listeners}
+		-On collide, jumpable = true
+		-On letgo, jumpable = false
+-Weapon-see weapon class
+		
+
+
+Ringout is created

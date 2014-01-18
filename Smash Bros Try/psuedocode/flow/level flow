@@ -1,0 +1,11 @@
+level start
+
+-create level
+	-get player start positions
+-create players at start positions
+-start countdown
+	-3,2,1 go
+
+
+If one player loses 4 life
+-End game
