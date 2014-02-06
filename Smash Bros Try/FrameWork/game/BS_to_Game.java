@@ -216,10 +216,6 @@ public class BS_to_Game extends JBoxGameManager{
 	Long last_time = 0L;
 	public int frames_per_second = 0;
 
-	public void time(long time) {
-		
-	}
-
 	@Override
 	public void deleteAssociated(Object o) {
 		// TODO Auto-generated method stub
