@@ -1,8 +1,8 @@
 package helpers;
 
+import game.BS_to_Game;
 import low_level_abstract.CollisionManager;
 
-import org.jbox2d.collision.WorldManifold;
 import org.jbox2d.collision.shapes.CircleShape;
 import org.jbox2d.collision.shapes.EdgeShape;
 import org.jbox2d.collision.shapes.PolygonShape;
@@ -20,9 +20,6 @@ import org.jbox2d.dynamics.joints.Joint;
 import state.StateEntity;
 import thinkers.MinionEntity;
 
-import clash.Clash;
-
-import abstracts.Game;
 
 public class Box2dHelper {
 
@@ -87,7 +84,7 @@ public class Box2dHelper {
 				Fixture p_bod = (is_fix_a)?contact.m_fixtureA:contact.m_fixtureB;
 				Fixture n_bod = (is_fix_a)?contact.m_fixtureB:contact.m_fixtureA;
 				if(!n_bod.isSensor())
-					Game.kill(n_bod.getBody());
+					BS_to_Game.kill(n_bod.getBody());
 			}
 
 			@Override

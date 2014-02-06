@@ -15,17 +15,19 @@ import org.jbox2d.collision.shapes.ShapeType;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.Fixture;
+import org.jbox2d.dynamics.World;
 import org.jbox2d.dynamics.joints.Joint;
 import org.jbox2d.dynamics.joints.JointType;
 import org.jbox2d.dynamics.joints.PrismaticJoint;
 
 import effects.Damage;
 
-import physics.PhysicsManager;
 import thinkers.MinionEntity;
 
 import abstracts.Game;
 import assets.SinCosTable;
+import assets.Vec2c;
+import assets.Vec2u;
 import graphic.GameGraphic;
 import graphic.GameRenderer;
 import graphic.GraphicManager;
@@ -52,7 +54,7 @@ public class CurrentDefaultRenderer extends GameRenderer{
 	@Override
 	public Collection<GameGraphic> getGraphics(final GraphicManager gr) {
 		BS_to_Game retype = (BS_to_Game)gr.game;
-		PhysicsManager pm = gr.game.world;
+		World pm = BS_to_Game.world;
 		setCamera(gr);
 		int bcount = pm.getBodyCount();
 		int jcount = pm.getJointCount();
@@ -181,8 +183,8 @@ public class CurrentDefaultRenderer extends GameRenderer{
 							Vec2 currentloc;
 							Vec2 nextloc;
 							for(int i=0;i<sct.na;i++){
-								currentloc = sct.calculate(i);
-								nextloc = sct.calculate(i+1);
+								currentloc = new Vec2c(sct.calculate(i)).asVec2();
+								nextloc = new Vec2c(sct.calculate(i+1)).asVec2();
 								g.drawLine(
 									Math.round(currentloc.x*radius),
 									Math.round(currentloc.y*radius),

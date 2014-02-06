@@ -1,6 +1,7 @@
 package game;
 
 
+import graphic.GameRenderer;
 import helpers.BodyUserData;
 import helpers.Box2dHelper;
 import helpers.Ownership;
@@ -12,9 +13,11 @@ import low_level_abstract.CollisionManager;
 import low_level_abstract.Logic_Entity;
 
 import org.jbox2d.callbacks.ContactImpulse;
+import org.jbox2d.callbacks.ContactListener;
 import org.jbox2d.collision.Manifold;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.BodyType;
+import org.jbox2d.dynamics.World;
 import org.jbox2d.dynamics.contacts.Contact;
 
 import clash.Clash;
@@ -24,11 +27,12 @@ import characters.PlayerPushFeetEntity;
 import pause.PauseInstance;
 import thinkers.MinionEntity;
 
+import entity_managers.JBoxGameManager;
 
 import abstracts.Game;
 import abstracts.GameLevel;
 
-public class BS_to_Game extends Game{
+public class BS_to_Game extends JBoxGameManager{
 	
 	public MinionEntity[] pee;
 	public GameLevel level;
@@ -40,15 +44,27 @@ public class BS_to_Game extends Game{
 	
 	
 	public BS_to_Game() {
+		super(new Vec2(0.0f, -10.0f));
 		le = new ArrayList<Logic_Entity>();
 		c = new ArrayList<Clash>();
 		pauses = new ArrayList<PauseInstance>();
+		
+		help = new Box2dHelper(world, players.length,1,.3f);
+		
+		level = new MyFirstLevel(this);
+		level.getBodies(world);
+		
+		pee = new MinionEntity[players.length];
+		for(int i=0;i<players.length;i++){
+			pee[i] = new PlayerPushFeetEntity(i,new Vec2(i*10+5f, 16f));
+		}
+
 	}
 
-	@Override
-	public void worldInit() {
-		// TODO Auto-generated method stub
-		
+	public GameRenderer getRenderer(){
+		return new CurrentDefaultRenderer();
+	}
+			
 		/*
 		 * Each player is a boxer for the time being
 		 * two rectangles for each arm
@@ -67,24 +83,8 @@ public class BS_to_Game extends Game{
 		 * 2 is defined for generic badguys (they don't contact eachother but do contact opponent
 		 * 
 		 * 
-		 * 
 		 */
-		
-		world.setGravity(new Vec2(0.0f, -10.0f));
-		new Box2dHelper(world, players.length,1,.3f);
-		
-		level = new MyFirstLevel(this);
-		level.getBodies(world);
-		
-		pee = new MinionEntity[players.length];
-		for(int i=0;i<players.length;i++){
-			pee[i] = new PlayerPushFeetEntity(i,new Vec2(i*10+5f, 16f));
-		}
-		
-
-
-	}
-
+			
 	public void beginContact(Contact contact) {
 		Ownership fixadata = (Ownership)contact.m_fixtureA.getUserData();
 		Ownership fixbdata = (Ownership)contact.m_fixtureB.getUserData();
@@ -206,39 +206,12 @@ public class BS_to_Game extends Game{
 		
 	}
 
-	@Override
-	public void playerAction(int playernumber, String button, float amount) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	private int framenum =0;
 	Long last_time = 0L;
 	public int frames_per_second = 0;
 
 	public void time(long time) {
-		current_frame++;
-		last_time += time;
-		if(last_time>= 1000){
-			frames_per_second = Math.round(1000*framenum/last_time);
-			last_time = 0L;
-			framenum = 0;
-		}else framenum++;
 		
-		level.time(current_frame);
-		
-		for(int i=0;i<c.size();i++){
-			c.get(i).time(current_frame);
-			if(c.get(i).startframe == -1){c.remove(i); i--;}
-		}
-		
-		for(int i=0;i<pauses.size();i++){
-			pauses.get(i).time();
-		}
-		
-		for(Logic_Entity l : le){
-			l.time(current_frame);
-		}
 	}
 
 	@Override
@@ -253,6 +226,31 @@ public class BS_to_Game extends Game{
 				pee[pn] = null;
 				pee[pn] =	new PlayerPushFeetEntity(pn,new Vec2(pn*10+5f, 16f));
 			}
+		}
+	}
+
+	@Override
+	public void doAI(long time) {
+		current_frame++;
+		last_time += time;
+		if(last_time>= 1000){
+			frames_per_second = Math.round(1000*framenum/last_time);
+			last_time = 0L;
+			this.framenum = 0;
+		}else this.framenum++;
+		level.time(current_frame);
+		
+		for(int i=0;i<c.size();i++){
+			c.get(i).time(current_frame);
+			if(c.get(i).startframe == -1){c.remove(i); i--;}
+		}
+		
+		for(int i=0;i<pauses.size();i++){
+			pauses.get(i).time();
+		}
+		
+		for(Logic_Entity l : le){
+			l.time(current_frame);
 		}
 	}
 

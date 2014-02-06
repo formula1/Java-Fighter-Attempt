@@ -14,6 +14,7 @@ import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.World;
 
 import abstracts.GameLevel;
+import assets.Vec2c;
 
 public class MyFirstLevel extends GameLevel{
 
@@ -88,7 +89,7 @@ public class MyFirstLevel extends GameLevel{
 		camera_bounds.y = camera_bounds.x = Math.max(camera_bounds.x+buffer*2, camera_bounds.y+buffer*2);
 		
 				
-		Camera cam = new Camera(Midpoint, camera_bounds, 0f);
+		Camera cam = new Camera(new Vec2c(Midpoint), new Vec2c(camera_bounds), 0f);
 
 		return cam;
 	}

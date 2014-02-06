@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 import controller.PlayerListener;
 
-public class CommandDigestor implements PlayerListener{
+public class InputBuffer implements PlayerListener{
 
 	String[] CommandListening;
 	

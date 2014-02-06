@@ -71,7 +71,7 @@ public abstract class Game_Projectile implements Logic_Entity, PauseInterface{
 		grounddef.angularVelocity = getAngleVelocity(r.m_angularVelocity);
 		grounddef.linearVelocity = getLinearVelocity(r.m_linearVelocity, r.getAngle());
 		grounddef.userData = new Ownership(owner.pn,this,owner,"basic_projectile");
-		projectile_body = Game.world.createBody(grounddef);
+		projectile_body = BS_to_Game.world.createBody(grounddef);
 
 		FixtureDef[] fs = getFixtures();
 		for(FixtureDef f : fs){
@@ -103,7 +103,7 @@ public abstract class Game_Projectile implements Logic_Entity, PauseInterface{
 //	public abstract void onImpact(Contact contact, Entity other);
 	
 	public void die(){
-		Game.kill(projectile_body);
+		BS_to_Game.kill(projectile_body);
 		onDeath();
 	}
 	public abstract void onDeath();

@@ -10,5 +10,6 @@
 	<classpathentry kind="lib" path="C:/Users/Sam/Downloads/socket.io-java-client-master/socket.io-java-client-master/libs/json-org.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Game Core"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/jbox2d-library"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/JBox2D_Helper_Layer"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
