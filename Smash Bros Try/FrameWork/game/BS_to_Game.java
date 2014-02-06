@@ -48,8 +48,18 @@ public class BS_to_Game extends JBoxGameManager{
 		le = new ArrayList<Logic_Entity>();
 		c = new ArrayList<Clash>();
 		pauses = new ArrayList<PauseInstance>();
-		
-		help = new Box2dHelper(world, players.length,1,.3f);
+	}
+
+	public GameRenderer getRenderer(){
+		return new CurrentDefaultRenderer();
+	}
+
+	public void ready(){
+		help = new Box2dHelper(
+				world, 
+				players.length,
+				1,
+				.3f);
 		
 		level = new MyFirstLevel(this);
 		level.getBodies(world);
@@ -60,11 +70,7 @@ public class BS_to_Game extends JBoxGameManager{
 		}
 
 	}
-
-	public GameRenderer getRenderer(){
-		return new CurrentDefaultRenderer();
-	}
-			
+	
 		/*
 		 * Each player is a boxer for the time being
 		 * two rectangles for each arm
