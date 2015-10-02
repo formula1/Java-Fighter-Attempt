@@ -195,7 +195,6 @@ public class BS_to_Game extends JBoxGameManager{
 	}
 
 	public void playerEvent(int player_number, String input, Float value) {
-		players[player_number].put(input, value);
 	}
 
 	

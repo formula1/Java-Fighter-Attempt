@@ -100,14 +100,14 @@ public class PlayerPushFeetEntity extends MinionEntity{
 	private boolean attacking = false;
 
 	public void doAI(int framenum) {
-		if(Game.players[pn].get("left") > 0.5f && Game.players[pn].get("right") < 0.5f ){
-			ground.walk((Game.players[pn].get("y") > 0.5)?-100:-10);
-		}else if(Game.players[pn].get("right") > 0.5f && Game.players[pn].get("left") < 0.5f ){
-			ground.walk((Game.players[pn].get("y") > 0.5)?100:10);
+		if(Game.players[pn].buttons.get("left") > 0.5f && Game.players[pn].buttons.get("right") < 0.5f ){
+			ground.walk((Game.players[pn].buttons.get("y") > 0.5)?-100:-10);
+		}else if(Game.players[pn].buttons.get("right") > 0.5f && Game.players[pn].buttons.get("left") < 0.5f ){
+			ground.walk((Game.players[pn].buttons.get("y") > 0.5)?100:10);
 		}else
 			ground.walk(0);
 		
-		if(	Game.players[pn].get("a") > 0.5f){
+		if(	Game.players[pn].buttons.get("a") > 0.5f){
 			ground.jump(20);
 		}
 
@@ -130,10 +130,10 @@ public class PlayerPushFeetEntity extends MinionEntity{
 			attacking = false;
 		}
 */
-		if(			Game.players[pn].get("up") > 0.5f		&&		Game.players[pn].get("down") < 0.5f
+		if(			Game.players[pn].buttons.get("up") > 0.5f		&&		Game.players[pn].buttons.get("down") < 0.5f
 		){
 			ham.activate((byte) 1, "swing");
-		}else if(	Game.players[pn].get("up") < 0.5f		&&		Game.players[pn].get("down") > 0.5f){
+		}else if(	Game.players[pn].buttons.get("up") < 0.5f		&&		Game.players[pn].buttons.get("down") > 0.5f){
 			ham.activate((byte) 3, "swing");
 		}else{
 			ham.deactivate();
@@ -146,10 +146,10 @@ public class PlayerPushFeetEntity extends MinionEntity{
 	
 	public int clashAI(int frame_num) {
 		// TODO Auto-generated method stub
-		if(!toggling && Game.players[pn].get("x") > 0.5){
+		if(!toggling && Game.players[pn].buttons.get("x") > 0.5){
 			toggling = true;
 			return 1;
-		}else if(toggling && Game.players[pn].get("x") < 0.5) toggling = false;
+		}else if(toggling && Game.players[pn].buttons.get("x") < 0.5) toggling = false;
 		return 0;
 	}
 

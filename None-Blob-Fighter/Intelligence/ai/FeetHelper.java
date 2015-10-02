@@ -129,6 +129,5 @@ public class FeetHelper implements CollisionManager{
 	
 	public void walk(float max){
 		if(!in_air) Box2dHelper.accelHelp(Minion, max, accelleration);
-
 	}	
 }
